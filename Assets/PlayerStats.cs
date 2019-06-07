@@ -8,6 +8,8 @@ public class PlayerStats : MonoBehaviour
     //create lives
     
     public int playerLives = 3;
+    public int classSize = 25;
+    public bool classCounted;
 
     // Start is called before the first frame update
     void Start()
@@ -30,17 +32,27 @@ public class PlayerStats : MonoBehaviour
             //coin toss
             if (Random.Range(1, 7) > 4)
             {
-                
-                    IncreaseLives(2);
+
+                IncreaseLives(2);
                 print("you win the coin toss.");
             }
-        else
-        {
+            else
+            {
                 print("you loose the coin toss.");
                 IncreaseLives(-2);
 
             }
         }
+
+        if (!classCounted)
+        {
+            for (int i = 0; i < classSize; i++)
+            {
+                print(i);
+            }
+            classCounted = true;
+        }
+
     }
 
     void HelloWorld()
