@@ -41,8 +41,14 @@ public class Enemy : MonoBehaviour
         myStats.maxHP = 4;
     }
 
-    public void Attacked(int incDmg)
+    public void Attacked(int incDmg, Stats.StatusEffect incEffect)
     {
         myStats.HP -= incDmg - myStats.def;
+        myStats.myStatus = incEffect;
+    }
+
+    public void AttackTarget()
+    {
+        Attacked(myStats.str, Stats.StatusEffect.none);
     }
 }
