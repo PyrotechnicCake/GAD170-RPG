@@ -22,7 +22,7 @@ public class PlayerStats : MonoBehaviour
     public int enelvl;
 
     // Make winchance public (for debugging)
-    public int winchance;
+    int winchance;
 
     // Start is called before the first frame update
     void Start()
@@ -109,7 +109,7 @@ public class PlayerStats : MonoBehaviour
 
     void giveEXP()
     {
-        grantexp = enelvl / playerlvl * 50;
+        grantexp = Mathf.RoundToInt((float)enelvl / (float)playerlvl * 50);
         print("you got " + grantexp + " exp points.");
         exp += grantexp;
     }
