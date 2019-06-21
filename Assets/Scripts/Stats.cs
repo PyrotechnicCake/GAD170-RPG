@@ -12,6 +12,8 @@ public class Stats : MonoBehaviour
     public int spd;
     public int luck;
 
+    public bool isDefeated;
+
     public enum StatusEffect
     {
         none,

@@ -5,7 +5,10 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     //call my stats
-    Stats myStats;
+    public Stats myStats;
+
+    private GameObject GameManager;
+
 
     //enemy enum
     public enum Enemytypes
@@ -20,6 +23,9 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //find our gamemanager
+        GameManager = GameObject.FindGameObjectWithTag("GameManager");
+
         myStats = GetComponent<Stats>(); 
         switch(myType)
         {
@@ -45,10 +51,18 @@ public class Enemy : MonoBehaviour
     {
         myStats.HP -= incDmg - myStats.def;
         myStats.myStatus = incEffect;
+        if (myStats.HP <= 0)
+            myStats.isDefeated = true;
     }
 
-    public void AttackTarget()
+    public void AttackTarget(GameObject target)
     {
-        Attacked(myStats.str, Stats.StatusEffect.none);
+        target.GetComponent<Player>().Attacked(myStats.str, Stats.StatusEffect.none);
     }
+
+    public void defeated()
+    {
+        GameManager.GetComponent<GameManager>().RemoveEnemy(gameObject);
+    }
+
 }
