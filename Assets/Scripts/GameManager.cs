@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     //create list
     public List<GameObject> enemyList;
     public List<GameObject> enemySpawnList;
+    public int hit;
 
     public enum GameState
     {
@@ -121,13 +122,28 @@ public class GameManager : MonoBehaviour
         //this function takes an attacker and a defender and compares their stats and makes them fight
         //A hit/miss chance will need to be added bassed off stats, a skill stat has been added for this
         //skill will be compared to spd and mayb luck too?
-        defender.GetComponent<Stats>().Attacked(attacker.GetComponent<Stats>().str, Stats.StatusEffect.none);
+        hit = 10 * Mathf.RoundToInt((attacker.GetComponent<Stats>().skill * 2) - (defender.GetComponent<Stats>().spd + ((float)defender.GetComponent<Stats>().luck / 2)));
+        if (hit < 0)
+            hit = 0;
+        if (hit > 100)
+            hit = 100;
+        //does the attacker hit?
+        if (hit > Random.Range(1, 101))
+        {
+            defender.GetComponent<Stats>().Attacked(attacker.GetComponent<Stats>().str, Stats.StatusEffect.none);
+            Debug.Log(attacker.name +
+                " attacked " +
+                defender.name +
+                " and dealt " +
+                (defender.GetComponent<Stats>().hurt) +
+                " damage");
+        }
+        else
+        //if missed
         Debug.Log(attacker.name +
             " attacked " +
             defender.name +
-            " and dealt " +
-            (defender.GetComponent<Stats>().hurt) +
-            " damage");
+            " but they missed!");
     }
 
     IEnumerator battleGo()
