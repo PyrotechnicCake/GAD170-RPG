@@ -8,9 +8,11 @@ public class Stats : MonoBehaviour
     public int maxHP;
     public int HP;
     public int str;
+    public int skill;
     public int def;
     public int spd;
     public int luck;
+    public int hurt;
 
     public bool isDefeated;
 
@@ -27,7 +29,10 @@ public class Stats : MonoBehaviour
 
     public void Attacked(int incDmg, StatusEffect incEffect)
     {
-        HP -= incDmg - def;
+        hurt = incDmg - def;
+        if (hurt < 0)
+            hurt = 0;
+        HP -= hurt;
         myStatus = incEffect;
         if (HP <= 0)
             isDefeated = true;

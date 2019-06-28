@@ -7,7 +7,6 @@ public class GameManager : MonoBehaviour
 {
     //create list
     public List<GameObject> enemyList;
-
     public List<GameObject> enemySpawnList;
 
     public enum GameState
@@ -15,6 +14,7 @@ public class GameManager : MonoBehaviour
         notInCombat,
         inCombat
     }
+    public GameState gameState;
 
     public enum CombatState
     {
@@ -24,7 +24,6 @@ public class GameManager : MonoBehaviour
         Loss
     }
     public CombatState combatState;
-
     //objects for combat
     public GameObject playerObj;
     public GameObject enemyObj;
@@ -34,21 +33,20 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
         foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
         {
             enemyList.Add(enemy);
         }
 
-
     }
-
     // Update is called once per frame
     void Update()
     {
         if(doBattle)
         {
-            StartCoroutine(doBattle());
+            //start the battle, the object with higher spd goes first
+            //if spd is the same the fist turn is random
+            StartCoroutine(battleGo());
             doBattle = false;
         }
         /*foreach(GameObject enemy in enemyList)
@@ -81,35 +79,61 @@ public class GameManager : MonoBehaviour
                 //check if enemy is defeated
                 if (enemyObj.GetComponent<Stats>().isDefeated)
                     SpawnEnemy();
-                //victory
-                //tell the player they won the battle
+                //switch to enemy turn
                 combatState = CombatState.EnemyTurn;
                 break;
-
             //enemy turn
             case CombatState.EnemyTurn:
-            //decision attack
-            //attac player
-            BattleRound(enemyObj, playerObj);
+                //decision attack
+                //attac player
+                BattleRound(enemyObj, playerObj);
                 //is player dead?
-                if (playerObj.GetComponent<Stats>().isDefeated)
+                if(playerObj.GetComponent<Stats>().isDefeated)
                 {
-                    print("you died");
+                    //the player died so set the state to loss
                     combatState = CombatState.Loss;
-                    //loss
-                    //the player lost
-                    case CombatState.Loss:
-                    SceneManager.LoadScene("SampleScene");
-                    
+                    print("you died");
+                    break;
                 }
-            combatState = CombatState.PlayerTurn;
-            break;
-
+                //Change to player turn
+                combatState = CombatState.PlayerTurn;
+                break;
+            //victory
+            case CombatState.Win:
+                print("a winner is you");
+                
+                break;
+            //tell the player they won
+            //end the game
+            case CombatState.Loss:
+                //we lose reset game
+                //loss
+                //tell the player they're a loser
+                //reset the game
+                SceneManager.LoadScene("SampleScene");
+                break;
         }
+
     }
+
     public void BattleRound(GameObject attacker, GameObject defender)
+    {
+        //this function takes an attacker and a defender and compares their stats and makes them fight
+        //A hit/miss chance will need to be added bassed off stats, a skill stat has been added for this
+        //skill will be compared to spd and mayb luck too?
+        defender.GetComponent<Stats>().Attacked(attacker.GetComponent<Stats>().str, Stats.StatusEffect.none);
+        Debug.Log(attacker.name +
+            " attacked " +
+            defender.name +
+            " and dealt " +
+            (defender.GetComponent<Stats>().hurt) +
+            " damage");
+    }
+
     IEnumerator battleGo()
     {
-        defender.GetComponent<Stats>().Attacked(attacker.GetComponent<Stats>().str, Stats.StatusEffect.none);
-        print(attacker.name + "dealt" + (attacker.GetComponent<Stats>().attack - defender.GetComponent + defender.name )
+        checkCombatState();
+        yield return new WaitForSeconds(1f);
+        doBattle = true;
     }
+}
