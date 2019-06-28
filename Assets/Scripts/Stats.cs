@@ -24,4 +24,12 @@ public class Stats : MonoBehaviour
 
     public StatusEffect myStatus;
     public StatusEffect attackEffect;
+
+    public void Attacked(int incDmg, StatusEffect incEffect)
+    {
+        HP -= incDmg - def;
+        myStatus = incEffect;
+        if (HP <= 0)
+            isDefeated = true;
+    }
 }

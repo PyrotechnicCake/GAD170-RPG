@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -28,6 +29,7 @@ public class GameManager : MonoBehaviour
     public GameObject playerObj;
     public GameObject enemyObj;
 
+    private bool doBattle = true;
 
     // Start is called before the first frame update
     void Start()
@@ -44,10 +46,15 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        foreach(GameObject enemy in enemyList)
+        if(doBattle)
+        {
+            StartCoroutine(doBattle());
+            doBattle = false;
+        }
+        /*foreach(GameObject enemy in enemyList)
         {
             enemy.GetComponent<Stats>().HP -= 10;
-        }
+        }*/
         
     }
 
@@ -70,27 +77,39 @@ public class GameManager : MonoBehaviour
             case CombatState.PlayerTurn:
                 //decision (attac)
                 //attac the enemy
-                playerObj.GetComponent<Player>().AttackTarget(enemyObj);
+                BattleRound(playerObj, enemyObj);
                 //check if enemy is defeated
-                if (enemyObj.GetComponent<Enemy>().myStats.isDefeated)
+                if (enemyObj.GetComponent<Stats>().isDefeated)
                     SpawnEnemy();
+                //victory
+                //tell the player they won the battle
+                combatState = CombatState.EnemyTurn;
                 break;
 
             //enemy turn
             case CombatState.EnemyTurn:
             //decision attack
             //attac player
-            enemyObj.GetComponent<Enemy>().AttackTarget(playerObj);
+            BattleRound(enemyObj, playerObj);
                 //is player dead?
-            if (playerObj.GetComponent<Player>().myStats.isDefeated)
+                if (playerObj.GetComponent<Stats>().isDefeated)
+                {
                     print("you died");
+                    combatState = CombatState.Loss;
+                    //loss
+                    //the player lost
+                    case CombatState.Loss:
+                    SceneManager.LoadScene("SampleScene");
+                    
+                }
+            combatState = CombatState.PlayerTurn;
             break;
 
-            //victory
-            //tell the player they won the battle
-
-            //loss
-            //the player lost
         }
     }
-}
+    public void BattleRound(GameObject attacker, GameObject defender)
+    IEnumerator battleGo()
+    {
+        defender.GetComponent<Stats>().Attacked(attacker.GetComponent<Stats>().str, Stats.StatusEffect.none);
+        print(attacker.name + "dealt" + (attacker.GetComponent<Stats>().attack - defender.GetComponent + defender.name )
+    }
