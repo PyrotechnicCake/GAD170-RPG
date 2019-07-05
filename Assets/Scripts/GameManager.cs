@@ -34,14 +34,18 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+        for (int i = 0; i < Random.Range(3, 5); i++)
         {
+            //add a random food item from the buffet to our plate, remember they are already different types!
+            GameObject enemy = Instantiate(enemySpawnList[Random.Range(0, enemySpawnList.Count)], transform);
             enemyList.Add(enemy);
         }
-
+        setTarget();
+        BattleStart();
     }
-    // Update is called once per frame
-    void Update()
+    
+    //Start a battle
+    void BattleStart()
     {
         if(doBattle)
         {
@@ -60,13 +64,17 @@ public class GameManager : MonoBehaviour
     public void RemoveEnemy(GameObject enemyToRemove)
     {
         enemyList.Remove(enemyToRemove);
+        Destroy(enemyToRemove);
+        setTarget();
     }
 
+    /*
     public void SpawnEnemy()
     {
         //Spawn an enemy from our list, use a random range
         Instantiate(enemySpawnList[Random.Range(0, enemySpawnList.Count)], transform);
     }
+    */
 
     public void checkCombatState()
     {
@@ -79,7 +87,10 @@ public class GameManager : MonoBehaviour
                 BattleRound(playerObj, enemyObj);
                 //check if enemy is defeated
                 if (enemyObj.GetComponent<Stats>().isDefeated)
-                    SpawnEnemy();
+                {
+                    RemoveEnemy(enemyObj);
+                    //SpawnEnemy();
+                }
                 //switch to enemy turn
                 combatState = CombatState.EnemyTurn;
                 break;
@@ -102,7 +113,6 @@ public class GameManager : MonoBehaviour
             //victory
             case CombatState.Win:
                 print("a winner is you");
-                
                 break;
             //tell the player they won
             //end the game
@@ -115,6 +125,14 @@ public class GameManager : MonoBehaviour
                 break;
         }
 
+    }
+
+    public void setTarget()
+    {
+        if (enemyList.Count > 0)
+            enemyObj = enemyList[0];
+        else
+            combatState = CombatState.Win;
     }
 
     public void BattleRound(GameObject attacker, GameObject defender)
