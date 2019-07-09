@@ -61,6 +61,11 @@ public class GameManager : MonoBehaviour
         
     }
 
+    private void Update()
+    {
+        BattleStart();
+    }
+
     public void RemoveEnemy(GameObject enemyToRemove)
     {
         enemyList.Remove(enemyToRemove);
@@ -68,13 +73,13 @@ public class GameManager : MonoBehaviour
         setTarget();
     }
 
-    /*
+    
     public void SpawnEnemy()
     {
         //Spawn an enemy from our list, use a random range
         Instantiate(enemySpawnList[Random.Range(0, enemySpawnList.Count)], transform);
     }
-    */
+    
 
     public void checkCombatState()
     {
@@ -82,34 +87,54 @@ public class GameManager : MonoBehaviour
         {
             //player turn
             case CombatState.PlayerTurn:
-                //decision (attac)
-                //attac the enemy
-                BattleRound(playerObj, enemyObj);
-                //check if enemy is defeated
-                if (enemyObj.GetComponent<Stats>().isDefeated)
+                //check for enemies to fight
+                if (enemyList.Count == 0)
                 {
-                    RemoveEnemy(enemyObj);
-                    //SpawnEnemy();
+                    //if there are no enemies left you win
+                    combatState = CombatState.Win;
+                    break;
                 }
-                //switch to enemy turn
-                combatState = CombatState.EnemyTurn;
+                else
+                {
+                    //decision (attac)
+                    //attac the enemy
+                    BattleRound(playerObj, enemyObj);
+                    //check if enemy is defeated
+                    if (enemyObj.GetComponent<Stats>().isDefeated)
+                    {
+                        RemoveEnemy(enemyObj);
+                        SpawnEnemy();
+                    }
+                    //switch to enemy turn
+                    combatState = CombatState.EnemyTurn;
+                }
                 break;
             //enemy turn
             case CombatState.EnemyTurn:
-                //decision attack
-                //attac player
-                BattleRound(enemyObj, playerObj);
-                //is player dead?
-                if(playerObj.GetComponent<Stats>().isDefeated)
+                //check if there is a enemy alive to take it's turn
+                if (enemyList.Count == 0)
                 {
-                    //the player died so set the state to loss
-                    combatState = CombatState.Loss;
-                    print("you died");
+                    //if there are no enemies left you win
+                    combatState = CombatState.Win;
                     break;
                 }
-                //Change to player turn
-                combatState = CombatState.PlayerTurn;
-                break;
+                else
+                {
+                    //decision attack
+                    //attac player
+                    BattleRound(enemyObj, playerObj);
+                    //is player dead?
+                    if (playerObj.GetComponent<Stats>().isDefeated)
+                    {
+                        //the player died so set the state to loss
+                        combatState = CombatState.Loss;
+                        print("you died");
+                        break;
+                    }
+                    //Change to player turn
+                    combatState = CombatState.PlayerTurn;
+                    break;
+                }
             //victory
             case CombatState.Win:
                 print("a winner is you");
