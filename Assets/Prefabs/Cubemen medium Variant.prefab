@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 7118657423718789931, guid: b873fb25f8cfcbc4abddf145975054ff,
         type: 3}
       propertyPath: m_Name
-      value: Cubemen medium
+      value: Cubemen medium Variant
       objectReference: {fileID: 0}
     - target: {fileID: 8289210326262078220, guid: b873fb25f8cfcbc4abddf145975054ff,
         type: 3}
@@ -110,12 +110,17 @@ PrefabInstance:
     - target: {fileID: 1912078051859796419, guid: b873fb25f8cfcbc4abddf145975054ff,
         type: 3}
       propertyPath: spd
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1912078051859796419, guid: b873fb25f8cfcbc4abddf145975054ff,
         type: 3}
       propertyPath: luck
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1912078051859796419, guid: b873fb25f8cfcbc4abddf145975054ff,
+        type: 3}
+      propertyPath: skill
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b873fb25f8cfcbc4abddf145975054ff, type: 3}

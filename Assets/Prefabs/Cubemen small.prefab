@@ -105,6 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2df8ab3a92cddce4fad36a51d0d560b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myStats: {fileID: 0}
   myType: 0
 --- !u!114 &1912078051859796419
 MonoBehaviour:
@@ -121,6 +122,11 @@ MonoBehaviour:
   maxHP: 4
   HP: 4
   str: 1
+  skill: 3
   def: 1
-  spd: 3
+  spd: 5
   luck: 2
+  hurt: 0
+  isDefeated: 0
+  myStatus: 0
+  attackEffect: 0

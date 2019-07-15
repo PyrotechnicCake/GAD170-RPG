@@ -43,14 +43,33 @@ public class GameManager : MonoBehaviour
         setTarget();
         BattleStart();
     }
-    
+
     //Start a battle
     void BattleStart()
     {
-        if(doBattle)
+        if (doBattle)
         {
             //start the battle, the object with higher spd goes first
             //if spd is the same the fist turn is random
+            if (enemyList.Count > 0)
+            {
+                if (playerObj.GetComponent<Stats>().spd > enemyObj.GetComponent<Stats>().spd)
+                {
+                    combatState = CombatState.PlayerTurn;
+                }
+                else
+                {
+                    if (playerObj.GetComponent<Stats>().spd < enemyObj.GetComponent<Stats>().spd)
+                    {
+                        combatState = CombatState.EnemyTurn;
+                    }
+                    else
+                    {
+                        int coinFlip = Random.Range(0, 2);
+                        combatState = (CombatState)coinFlip;
+                    }
+                }
+            }
             StartCoroutine(battleGo());
             doBattle = false;
         }

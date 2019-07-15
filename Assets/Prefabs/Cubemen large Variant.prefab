@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 8520250023047251069, guid: ab13b0c655002a543ad84bef81667343,
         type: 3}
       propertyPath: m_Name
-      value: Cubemen large
+      value: Cubemen large Variant
       objectReference: {fileID: 0}
     - target: {fileID: 7493356095001570394, guid: ab13b0c655002a543ad84bef81667343,
         type: 3}
@@ -111,6 +111,11 @@ PrefabInstance:
         type: 3}
       propertyPath: spd
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1044166260854023829, guid: ab13b0c655002a543ad84bef81667343,
+        type: 3}
+      propertyPath: skill
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab13b0c655002a543ad84bef81667343, type: 3}
