@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour
     //call my stats
     public Stats myStats;
 
-    private GameObject GameManager;
+    private GameObject BattleManager;
 
 
     //enemy enum
@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         //find our gamemanager
-        GameManager = GameObject.FindGameObjectWithTag("GameManager");
+        BattleManager = GameObject.FindGameObjectWithTag("BattleManager");
 
         myStats = GetComponent<Stats>(); 
         switch(myType)
@@ -63,7 +63,7 @@ public class Enemy : MonoBehaviour
     */
     public void defeated()
     {
-        GameManager.GetComponent<GameManager>().RemoveEnemy(gameObject);
+        BattleManager.GetComponent<BattleManager>().RemoveEnemy(gameObject);
     }
 
 }
