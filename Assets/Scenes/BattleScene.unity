@@ -892,9 +892,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae58e3a647c380e45a31a80c808e59d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pHealthBarFill: {fileID: 0}
-  eHealthBarFill: {fileID: 0}
-  bManager: {fileID: 0}
+  pHealthBarFill: {fileID: 1280314472}
+  eHealthBarFill: {fileID: 13228311}
+  bManager: {fileID: 300393332}
   combatLogLines:
   - {fileID: 1550800213}
   - {fileID: 536645863}
