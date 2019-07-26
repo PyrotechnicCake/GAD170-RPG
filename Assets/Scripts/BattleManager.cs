@@ -11,6 +11,19 @@ public class BattleManager : MonoBehaviour
     public int hit;
 
     private GameObject gameManager;
+    private GameObject battleUIManager;
+
+    public event System.Action<bool, float> UpdateHealth;
+
+    public void Awake()
+    {
+        //sub to battle ui manager
+        battleUIManager = GameObject.FindGameObjectWithTag("BattleUIManager");
+        battleUIManager.GetComponent<BattleUIManager>().CallAttack += checkCombatState;
+        battleUIManager.GetComponent<BattleUIManager>().CallDefend += checkCombatState;
+        battleUIManager.GetComponent<BattleUIManager>().CallMagic += checkCombatState;
+        //in future implementing an enum that control's the player's decisions would be ideal
+    }
 
     public enum GameState
     {
@@ -33,6 +46,8 @@ public class BattleManager : MonoBehaviour
 
     private bool doBattle = true;
 
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,7 +61,7 @@ public class BattleManager : MonoBehaviour
         BattleStart();
 
         //find our gamemanager
-        gameManager = GameObject.FindGameObjectWithTag("GameManger");
+        gameManager = GameObject.FindGameObjectWithTag("GameManager");
     }
 
     //Start a battle
@@ -214,6 +229,11 @@ public class BattleManager : MonoBehaviour
             " attacked " +
             defender.name +
             " but they missed!");
+
+
+        float percentage = defender.GetComponent<Stats>().HP / defender.GetComponent<Stats>().maxHP;
+        if (combatState == CombatState.PlayerTurn)
+            UpdateHealth(combatState == CombatState.PlayerTurn, percentage);
     }
 
     IEnumerator battleGo()

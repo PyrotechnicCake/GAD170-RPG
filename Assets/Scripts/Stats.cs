@@ -5,8 +5,8 @@ using UnityEngine;
 public class Stats : MonoBehaviour
 {
     //Initialize stats for everyone!! YAY!!!
-    public int maxHP;
-    public int HP;
+    public float maxHP;
+    public float HP;
     public int str;
     public int skill;
     public int def;
