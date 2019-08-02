@@ -8,6 +8,7 @@ TagManager:
   - GameManager
   - BattleManager
   - BattleUIManager
+  - EnemySpawnLoc
   layers:
   - Default
   - TransparentFX

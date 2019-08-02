@@ -51,23 +51,28 @@ public class BattleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < Random.Range(3, 5); i++)
-        {
-            //add a random food item from the buffet to our plate, remember they are already different types!
-            GameObject enemy = Instantiate(enemySpawnList[Random.Range(0, enemySpawnList.Count)], transform);
-            enemyList.Add(enemy);
-        }
+        
+        //add a random food item from the buffet to our plate, remember they are already different types!
+        GameObject enemy = Instantiate(enemySpawnList[Random.Range(0, enemySpawnList.Count)], transform);
+        enemyList.Add(enemy);
+        
         setTarget();
         BattleStart();
 
         //find our gamemanager
         gameManager = GameObject.FindGameObjectWithTag("GameManager");
+        //copy list of enemies to spawn
+        foreach(GameObject tempEnemy in enemySpawnList = gameManager.GetComponent<GameManager>().EnemiesToFight)
+        {
+            enemySpawnList.Add(tempEnemy);
+        }
+        //clear list
+        gameManager.GetComponent<GameManager>().EnemiesToFight.Clear();
+        SpawnEnemy();
     }
 
     //Start a battle
     void BattleStart()
-    {
-        if (doBattle)
         {
             //start the battle, the object with higher spd goes first
             //if spd is the same the fist turn is random
@@ -90,9 +95,6 @@ public class BattleManager : MonoBehaviour
                     }
                 }
             }
-            StartCoroutine(battleGo());
-            doBattle = false;
-        }
         /*foreach(GameObject enemy in enemyList)
         {
             enemy.GetComponent<Stats>().HP -= 10;
@@ -102,12 +104,17 @@ public class BattleManager : MonoBehaviour
 
     private void Update()
     {
-        BattleStart();
+        //BattleStart();
+        if (doBattle)
+        {
+            StartCoroutine(battleGo());
+            doBattle = false;
+        }
     }
 
     public void RemoveEnemy(GameObject enemyToRemove)
     {
-        enemyList.Remove(enemyToRemove);
+        enemyList.RemoveAt(0);
         Destroy(enemyToRemove);
         setTarget();
     }
@@ -115,8 +122,10 @@ public class BattleManager : MonoBehaviour
     
     public void SpawnEnemy()
     {
-        //Spawn an enemy from our list, use a random range
-        Instantiate(enemySpawnList[Random.Range(0, enemySpawnList.Count)], transform);
+        //get enemy spawn location using a tag
+        Transform EnemySpawnLoc = GameObject.FindGameObjectWithTag("EnemySpawnLoc").transform;
+        //assign the enemy object
+        enemyObj = Instantiate(enemySpawnList[0], EnemySpawnLoc);
     }
     
 
@@ -232,8 +241,8 @@ public class BattleManager : MonoBehaviour
 
 
         float percentage = defender.GetComponent<Stats>().HP / defender.GetComponent<Stats>().maxHP;
-        if (combatState == CombatState.PlayerTurn)
-            UpdateHealth(combatState == CombatState.PlayerTurn, percentage);
+        UpdateHealth(combatState == CombatState.PlayerTurn, percentage);
+        Debug.Log(defender.GetComponent<Stats>().maxHP);
     }
 
     IEnumerator battleGo()

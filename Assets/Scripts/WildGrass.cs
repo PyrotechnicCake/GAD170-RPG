@@ -11,7 +11,7 @@ public class WildGrass : MonoBehaviour
     {
         gameManager = GameObject.FindGameObjectWithTag("GameManager");
 
-        RollDice();
+            RollDice();
     }
 
     // Update is called once per frame
@@ -21,14 +21,14 @@ public class WildGrass : MonoBehaviour
     }
 
     void RollDice()
-    {
-        if (Random.Range(0,6)==3)
         {
-            //encounter enemy
-            gameManager.GetComponent<GameManager>().TravelToWorld(GameManager.Worlds.BattleScene);
+            if ((Random.Range(0, 4) == 3) && (isInGrass == true))
+            {
+                //encounter enemy
+                gameManager.GetComponent<GameManager>().TravelToWorld(GameManager.Worlds.BattleScene);
+            }
+            StartCoroutine(CheckTimer());
         }
-        StartCoroutine(CheckTimer());
-    }
 
     private void OnTriggerEnter(Collider col)
     {
@@ -49,6 +49,6 @@ public class WildGrass : MonoBehaviour
     IEnumerator CheckTimer()
     {
         yield return new WaitForSeconds(2);
-        RollDice();
+            RollDice();
     }
 }

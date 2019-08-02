@@ -407,8 +407,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyList: []
-  enemySpawnList:
-  - {fileID: 8243440733242528134, guid: 0bb1696beee135d438838a4ee5d2a476, type: 3}
+  enemySpawnList: []
   hit: 0
   gameState: 0
   combatState: 0
@@ -496,7 +495,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &445417901
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -509,6 +508,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa6ee0c1fd6b67b4cae182fffd049954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnemySpawnList: []
+  EnemiesToFight: []
 --- !u!4 &445417902
 Transform:
   m_ObjectHideFlags: 0
@@ -902,6 +903,36 @@ MonoBehaviour:
   - {fileID: 1967949593}
   - {fileID: 2044595679}
   combatlog: []
+--- !u!1 &727910809
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 727910810}
+  m_Layer: 0
+  m_Name: EnemySpawnLoc
+  m_TagString: EnemySpawnLoc
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &727910810
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 727910809}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.63, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1039649296
 GameObject:
   m_ObjectHideFlags: 0

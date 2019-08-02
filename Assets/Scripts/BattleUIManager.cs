@@ -41,13 +41,15 @@ public class BattleUIManager : MonoBehaviour
     {
         //fill amount is a number between 0 and 1
         //will handle fill amount in a script that calls the update healthbar function
-        if(isPlayer)
+        if(!isPlayer)
         {
             pHealthBarFill.fillAmount = HP;
+            print("updating player health");
         }
         else
         {
-            pHealthBarFill.fillAmount = HP;
+            eHealthBarFill.fillAmount = HP;
+            print("updating enemy health " + HP);
         }
     }
 
