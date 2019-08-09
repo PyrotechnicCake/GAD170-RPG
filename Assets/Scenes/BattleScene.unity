@@ -275,6 +275,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Good boy Bront
       objectReference: {fileID: 0}
+    - target: {fileID: 8128506635145737252, guid: 08665278f43b15b409ca3a07b640b76b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 8128506635145737438, guid: 08665278f43b15b409ca3a07b640b76b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -352,6 +357,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3035540c0ad625044860d309fcb322ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerlvl: 0
   maxHP: 25
   HP: 25
   str: 5
