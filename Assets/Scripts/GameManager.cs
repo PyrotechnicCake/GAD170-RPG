@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
 
     void SavePlayerStuff(bool isFromOverworld)
     {
-        Stats playerStats = GameObject.FindGameObjectWithTag("player").GetComponent<Stats>();
+        Stats playerStats = GameObject.FindGameObjectWithTag("Player").GetComponent<Stats>();
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
         //only save position in overworld
         if (isFromOverworld)
@@ -90,7 +90,7 @@ public class GameManager : MonoBehaviour
 
     void LoadPlayerStuff(bool goingToOverworld)
     {
-        Stats playerStats = GameObject.FindGameObjectWithTag("player").GetComponent<Stats>();
+        Stats playerStats = GameObject.FindGameObjectWithTag("Player").GetComponent<Stats>();
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
         PlayerPrefs.GetFloat("playerMaxHealth", playerStats.maxHP);
         PlayerPrefs.GetFloat("playerHealth", playerStats.HP);
