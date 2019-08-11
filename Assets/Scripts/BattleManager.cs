@@ -150,6 +150,9 @@ public class BattleManager : MonoBehaviour
                     //check if enemy is defeated
                     if (enemyObj.GetComponent<Stats>().isDefeated)
                     {
+                        //grant exp
+
+                        GameObject.FindGameObjectWithTag("Player").GetComponent<Stats>().LevelUp();
                         RemoveEnemy(enemyObj);
                         SpawnEnemy();
                     }
@@ -202,6 +205,7 @@ public class BattleManager : MonoBehaviour
         }
 
     }
+
 
     public void setTarget()
     {
