@@ -23,6 +23,9 @@ public class BattleManager : MonoBehaviour
         battleUIManager.GetComponent<BattleUIManager>().CallDefend += checkCombatState;
         battleUIManager.GetComponent<BattleUIManager>().CallMagic += checkCombatState;
         //in future implementing an enum that control's the player's decisions would be ideal
+
+        //find our gamemanager
+        gameManager = GameObject.FindGameObjectWithTag("GameManager");
     }
 
     public enum GameState
@@ -46,28 +49,24 @@ public class BattleManager : MonoBehaviour
 
     private bool doBattle = true;
 
-    
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
+        //copy list of enemies to spawn
+        foreach(GameObject tempEnemy in gameManager.GetComponent<GameManager>().EnemiesToFight)
+        {
+            enemySpawnList.Add(tempEnemy);
+        }
+        //clear list
+        gameManager.GetComponent<GameManager>().EnemiesToFight.Clear();
         //add a random food item from the buffet to our plate, remember they are already different types!
         GameObject enemy = Instantiate(enemySpawnList[Random.Range(0, enemySpawnList.Count)], transform);
         enemyList.Add(enemy);
         
         setTarget();
         BattleStart();
-
-        //find our gamemanager
-        gameManager = GameObject.FindGameObjectWithTag("GameManager");
-        //copy list of enemies to spawn
-        foreach(GameObject tempEnemy in enemySpawnList = gameManager.GetComponent<GameManager>().EnemiesToFight)
-        {
-            enemySpawnList.Add(tempEnemy);
-        }
-        //clear list
-        gameManager.GetComponent<GameManager>().EnemiesToFight.Clear();
         SpawnEnemy();
     }
 

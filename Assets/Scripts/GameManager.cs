@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour
                 break;
             case Worlds.BattleScene:
                 //load battlescene
+                GenerateEnemies();
                 SavePlayerStuff(true);
                 SceneManager.LoadScene("BattleScene");
                 LoadPlayerStuff(false);
